@@ -7,7 +7,8 @@ class ProductController {
 
         try {
 
-            const products = await Product.findAll({});
+            const attributes = ['product_id', 'product', 'price']
+            const products = await Product.findAll({attributes: attributes});
             return res.status(200).json(products);
             
         } catch (error) { 
@@ -23,7 +24,8 @@ class ProductController {
         try {
             
             const { id } = req.params;
-            const product = await Product.findOne({where: {product_id: id}});
+            const attributes = ['product_id', 'product', 'price']
+            const product = await Product.findOne({where: {product_id: id}, attributes: attributes});
             return res.status(200).json(product);
             
         } catch (error) {

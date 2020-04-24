@@ -20,8 +20,7 @@ module.exports = {
         price: {
             type: Sequelize.STRING,
             allowNull: false
-        }
-      
+        },
       });
   },
 

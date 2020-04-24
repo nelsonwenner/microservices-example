@@ -20,7 +20,7 @@ class Product extends Model {
             price: {
                 type: Sequelize.STRING,
                 allowNull: false
-            }
+            },
         }, 
         {
             sequelize

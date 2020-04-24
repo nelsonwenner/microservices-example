@@ -1,3 +1,4 @@
+import databaseConfig from '../config/config';
 import Product from '../app/models/Product';
 import { success } from 'consola';
 import Sequelize from 'sequelize';

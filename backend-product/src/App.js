@@ -1,5 +1,5 @@
 import router from './routes/index.router';
-import './database/connection.database';
+import './database/ConnectionDataBase';
 import { config } from 'dotenv';
 import Express from 'express';
 import cors from 'cors';
