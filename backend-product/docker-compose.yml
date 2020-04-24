@@ -1,0 +1,35 @@
+version: "3.7"
+
+services:
+    product-api:
+        container_name: "product-api-container"
+        image: node:10.16-slim
+        working_dir: /home/backend
+        volumes:
+            - ./:/home/backend
+        ports: 
+            - "3000:3000"
+        command: "npm run start && npm run migrate"
+        depends_on: 
+            -  product-postgres
+        restart: always
+        networks:
+            - database
+          
+    product-postgres:
+        container_name: product-postgres-container
+        image: library/postgres:9.6-alpine
+        ports: 
+            - "5431:5432"
+        volumes: 
+            - ./docker/postgres/data:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: ${DB_USER}
+            POSTGRES_PASSWORD: ${DB_PASS}
+            POSTGRES_DB: ${DB_NAME}
+        restart: always
+        networks: 
+            - database
+networks:
+  database:
+    driver: "bridge"
