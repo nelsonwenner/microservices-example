@@ -21,6 +21,11 @@ class Product extends Model {
                 type: Sequelize.STRING,
                 allowNull: false
             },
+
+            stock: {
+                type: Sequelize.INTEGER,
+                allowNull: false
+            },
         }, 
         {
             sequelize
