@@ -13,7 +13,7 @@ class ProductDetail extends Component {
       product: ''
     };
   }
-
+  
   componentWillMount() {
     this.getProduct(this.props.match.params.id);
   }
