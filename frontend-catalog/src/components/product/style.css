@@ -1,0 +1,39 @@
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.card-flex {
+    flex: 1 1 200px;
+    margin: 10px;
+    height: 200px;
+    width: 550px;
+    background: rgb(226, 226, 226);
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px;
+    border-bottom: 1px solid whitesmoke;
+    display: block;
+    text-align: center;
+}
+
+.card-price {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 55px;
+}
+
+.card-flex:hover {
+    box-shadow: 0px 3px 20px 0 rgba(102, 247, 110, 0.5)
+}
+
+.card li {
+    list-style: none;
+}
