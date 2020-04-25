@@ -40,9 +40,9 @@ class ProductController {
 
         try {
             
-            const { id } = req.params;
+            const { product_id } = req.body;
             const attributes = ['product_id', 'product', 'price', stock]
-            const product = await Product.findOne({where: {product_id: id, stock: 1}, attributes: attributes});
+            const product = await Product.findOne({where: {product_id: product_id, stock: 1}, attributes: attributes});
 
             if (!product) { throw 'not in stock' }
 
