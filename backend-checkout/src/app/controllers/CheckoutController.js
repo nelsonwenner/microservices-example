@@ -18,8 +18,8 @@ class CheckoutController {
             const validationUser = await User.findOne({where: {name: user, password: password}});
 
             if (!validationUser) { throw 'Credentials invalid' }
-
-            const existproduct = await Api.get(`/products/${1}`);
+            
+            const existproduct = await Api.post(`/products/stock/`, {product_id: product_id});
 
             if (!existproduct) { throw 'Product not exists' }
         
