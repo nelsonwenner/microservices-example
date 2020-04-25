@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './style.css';
 
-import Api from '../../services/Api';
-import Product from '../../components/product/Product';
+import Api from '../../../services/Api';
+import Product from '../../../components/product/index';
 
 
 class Home extends Component {
@@ -15,10 +15,10 @@ class Home extends Component {
     };
   }
   
-  componentDidMount() {
+  componentWillMount() {
     this.getProducts();
   }
-
+  
   async getProducts() {
     const { data } = await Api.get('/products/');
     this.setState({ products: data });
