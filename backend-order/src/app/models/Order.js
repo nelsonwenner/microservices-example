@@ -1,17 +1,17 @@
 import Sequelize, { Model } from 'sequelize';
 
-class Checkout extends Model {
+class Order extends Model {
     
     static init(sequelize) {
         super.init({
             
-            checkout_id: {
+            order_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true 
             },
-
+        
             user_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
@@ -31,4 +31,4 @@ class Checkout extends Model {
     }
 }
 
-export default Checkout;
+export default Order;

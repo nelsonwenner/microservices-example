@@ -1,6 +1,5 @@
-import Checkout from '../models/Checkout';
+import Queue from '../../services/queue/Queue';
 import Api from '../../services/Api';
-import queue from '../../services/queue/Queue';
 
 
 class CheckoutController {
@@ -11,7 +10,7 @@ class CheckoutController {
 
             const { user, password, product_id } = req.body;
             
-            const auth = await Api.ApiAuth.post('/auth/', {user: user, password: password})
+            const auth = await Api.ApiAuth.post('/auth/', {user: user, password: password});
 
             if (auth.status == 404) { throw new Error('User not found') }
 
@@ -20,12 +19,10 @@ class CheckoutController {
             const { data } = await Api.ApiProduct.post('/products/stock/', {product_id: product_id});
             
             if (!data.status) { throw new Error('not in stock') }
-        
-            const { checkout_id } = await Checkout.create({user_id: auth.data.user_id, product_id: product_id});
-
-            const payload = JSON.stringify({user: auth.data.user_id, product: product_id, checkout: checkout_id})
-
-            queue.publish('checkout_exchange', 'order', payload);
+            
+            const payload = JSON.stringify({user: auth.data.user_id, product: product_id, created_at: new Date()});
+            
+            Queue.publish('checkout_exchange', 'checkout', payload);
 
             return res.status(200).json({status: true});
             
@@ -38,21 +35,6 @@ class CheckoutController {
                 case 'not in stock':
                     return res.status(404).json({error: 'not in stock' });
                 default:
-                    return res.status(400).json({error: error.message });
-            }
-        }
-    }
-
-    async index(req, res) {
-
-        try {
-
-            const checkouts = await Checkout.findAll({});
-            return res.status(200).json(checkouts);
-            
-        } catch (error) { 
-            switch (error.message) {
-                case error.message:
                     return res.status(400).json({error: error.message });
             }
         }

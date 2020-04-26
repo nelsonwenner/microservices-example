@@ -1,9 +1,9 @@
 import databaseConfig from '../config/config';
-import Checkout from '../app/models/Checkout';
+import Order from '../app/models/Order';
 import { success } from 'consola';
 import Sequelize from 'sequelize';
 
-const models = [Checkout];
+const models = [Order];
 
 class ConnectionDatabase {
     constructor() {

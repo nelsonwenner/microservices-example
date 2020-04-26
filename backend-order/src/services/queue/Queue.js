@@ -16,22 +16,33 @@ class Queue {
         }, 500);
     }
 
-    publish(exchange, routerKey, msgPayload) {
+    consumer(exchange, queueName, routerKey, ACK) {
         amqp.connect(url, (connectError, connection) => {
 
             if (connectError) { throw connectError; }
-    
+            
             connection.createChannel((channelError, channel) => {
     
                 if (channelError) { throw channelError; }
+                
+                channel.assertExchange(exchange, 'direct', {durable: true});
+                
+                channel.assertQueue(queueName, {exclusive: false}, (error, q) => {
     
-                channel.publish(exchange, routerKey, Buffer.from(msgPayload));
+                    console.log(" [*] Waiting for messages in %s", q.queue);
+                    
+                    channel.bindQueue(q.queue, exchange, routerKey);
     
-                console.log(`\n[X] Payload: ${msgPayload}\n[X] RouterKey: ${routerKey}`);
+                    channel.consume(q.queue, (msg) => {
+                        
+                        ACK(msg);
+
+                    }, {
+                        noAck: true
+                    });
+                });
             });
-    
-            this.closedConnection(connection);
-        })
+        });
     }
 }
 

@@ -1,4 +1,6 @@
+import './app/controllers/ConsumerController';
 import router from './routes/index.router';
+import './database/ConnectionDataBase';
 import { config } from 'dotenv';
 import Express from 'express';
 import cors from 'cors';

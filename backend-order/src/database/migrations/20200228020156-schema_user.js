@@ -3,33 +3,32 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     
-    return queryInterface.createTable('checkouts', { 
+    return queryInterface.createTable('orders', { 
       
-        checkout_id: {
+      order_id: {
           type: Sequelize.INTEGER,
           allowNull: false,
           autoIncrement: true,
           primaryKey: true 
-        },
-        
-        user_id: {
+      },
+
+      user_id: {
           type: Sequelize.INTEGER,
           allowNull: false,
-        },
-        
-        product_id: {
+      },
+      
+      product_id: {
           type: Sequelize.INTEGER,
           allowNull: false
-        },
-        
-        created_at: Sequelize.DATE,
-        updated_at: Sequelize.DATE
-      });
+      },
+      
+      created_at: Sequelize.DATE,
+      updated_at: Sequelize.DATE
+    });
   },
 
   down: (queryInterface, Sequelize) => {
    
-    return queryInterface.dropTable('checkouts');
-
+    return queryInterface.dropTable('orders');
   }
 };
