@@ -23,13 +23,11 @@ services:
         volumes:
             - ./backend-checkout:/backend/src/
         depends_on: 
-            - checkout-postgres
             - rabbitmq-queue
         command: "npm run start"
         ports: 
             - "3010:3000"
         environment:
-            - DB_URI=checkout-postgres
             - PRODUCT_URI=product-api:3000
             - AUTH_URI=auth-api:3000
             - RABBITMQ_URI=rabbitmq-queue
@@ -57,19 +55,6 @@ services:
             - "5431:5432"
         volumes: 
             - ./backend-product/docker/postgres/data:/var/lib/postgresql/data
-        environment:
-            - POSTGRES_USER=root
-            - POSTGRES_PASSWORD=root@123
-            - POSTGRES_DB=database
-        restart: always
-
-    checkout-postgres:
-        container_name: checkout-postgres-container
-        image: library/postgres:9.6-alpine
-        ports: 
-            - "5433:5432"
-        volumes: 
-            - ./backend-checkout/docker/postgres/data:/var/lib/postgresql/data
         environment:
             - POSTGRES_USER=root
             - POSTGRES_PASSWORD=root@123
