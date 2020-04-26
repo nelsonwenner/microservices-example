@@ -3,6 +3,6 @@ import router from './config.router';
 
 export default [
 
-    router.get('/orders/:id/', OrderController.show),
+    router.post('/orders/', OrderController.index),
 
 ]

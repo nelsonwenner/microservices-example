@@ -22,7 +22,7 @@ class CheckoutController {
             
             const payload = JSON.stringify({user: auth.data.user_id, product: product_id, created_at: new Date()});
             
-            Queue.publish('checkout_exchange', 'checkout', payload);
+            await Queue.publish('checkout_exchange', 'checkout', payload);
 
             return res.status(200).json({status: true});
             

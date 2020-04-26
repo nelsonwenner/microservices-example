@@ -1,4 +1,4 @@
-import amqp from 'amqplib/callback_api';
+import amqp from 'amqplib';
 import 'dotenv/config';
 
 const url = `amqp://${process.env.RABBITMQ_USER}:${process.env.RABBITMQ_PASSWORD}@${process.env.RABBITMQ_URI}`;
@@ -7,7 +7,7 @@ const url = `amqp://${process.env.RABBITMQ_USER}:${process.env.RABBITMQ_PASSWORD
 class Queue {
 
     constructor() { }
-
+    
     closedConnection(connecction) {
         console.log("\nClosing Connection...");
 
@@ -16,22 +16,15 @@ class Queue {
         }, 500);
     }
 
-    publish(exchange, routerKey, msgPayload) {
-        amqp.connect(url, (connectError, connection) => {
+    async publish(exchange, routerKey, msgPayload) {
+        const connection = await amqp.connect(url);
+        const channel = await connection.createChannel();
+        
+        await channel.publish(exchange, routerKey, Buffer.from(msgPayload), { persistent: true });
+    
+        console.log(`\n[X] Payload: ${msgPayload}\n[X] RouterKey: ${routerKey}`);
 
-            if (connectError) { throw connectError; }
-    
-            connection.createChannel((channelError, channel) => {
-    
-                if (channelError) { throw channelError; }
-    
-                channel.publish(exchange, routerKey, Buffer.from(msgPayload));
-    
-                console.log(`\n[X] Payload: ${msgPayload}\n[X] RouterKey: ${routerKey}`);
-            });
-    
-            this.closedConnection(connection);
-        })
+        this.closedConnection(connection);
     }
 }
 

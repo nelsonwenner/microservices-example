@@ -21,6 +21,11 @@ class Order extends Model {
                 type: Sequelize.INTEGER,
                 allowNull: false
             },
+
+            status: {
+                type: Sequelize.STRING,
+                allowNull: false
+            }
         }, 
         {
             sequelize
