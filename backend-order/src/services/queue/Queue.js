@@ -1,4 +1,4 @@
-import amqp from 'amqplib/callback_api';
+import amqp from 'amqplib';
 import 'dotenv/config';
 
 const url = `amqp://${process.env.RABBITMQ_USER}:${process.env.RABBITMQ_PASSWORD}@${process.env.RABBITMQ_URI}`;
@@ -9,30 +9,44 @@ class Queue {
     constructor() { }
 
     closedConnection(connecction) {
-        console.log("\nClosing Connection...");
+        console.log("\nClosing Connection...\n");
 
         setTimeout(() => { connecction.close();
             process.emit(0);
         }, 500);
     }
 
-    publish(exchange, routerKey, msgPayload) {
-        amqp.connect(url, (connectError, connection) => {
+    async publish(exchange, routerKey, msgPayload) {
+        const connection = await amqp.connect(url);
+        const channel = await connection.createChannel();
+        
+        await channel.publish(exchange, routerKey, Buffer.from(msgPayload), { persistent: true });
+    
+        console.log(`\n[X] Payload: ${msgPayload}\n[X] RouterKey: ${routerKey}`);
 
-            if (connectError) { throw connectError; }
-    
-            connection.createChannel((channelError, channel) => {
-    
-                if (channelError) { throw channelError; }
-    
-                channel.publish(exchange, routerKey, Buffer.from(msgPayload));
-    
-                console.log(`\n[X] Payload: ${msgPayload}\n[X] RouterKey: ${routerKey}`);
-            });
-    
-            this.closedConnection(connection);
-        })
+        this.closedConnection(connection);
     }
+
+    async consumer(exchange, queueName, routerKey, ACK) {
+        const connection = await amqp.connect(url);
+        const channel = await connection.createChannel();
+
+        await channel.assertExchange(exchange, 'direct', {durable: true});
+
+        const q = await channel.assertQueue(queueName, {durable: true}, {exclusive: false});
+
+        await channel.bindQueue(queueName, exchange, routerKey);
+
+        console.log(" [*] Waiting for messages in %s", q.queue);
+
+        channel.consume(q.queue, (msg) => {
+
+            ACK(msg);
+
+        }, { noAck: true });
+    }
+
+    /*
 
     consumer(exchange, queueName, routerKey, ACK) {
         amqp.connect(url, (connectError, connection) => {
@@ -62,6 +76,7 @@ class Queue {
             });
         });
     }
+    */
 }
 
 export default new Queue();
