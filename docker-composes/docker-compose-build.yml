@@ -3,13 +3,9 @@ version: "3.7"
 services:
     product-api:
         container_name: "product-api-container"
-        image: node:10.16-slim
-        working_dir: /backend/src/
-        volumes:
-            - ./backend-product:/backend/src/
+        build: './backend-product'
         depends_on: 
             - product-postgres
-        command: "npm run start"
         ports: 
             - "3000:3000"
         environment:
@@ -18,14 +14,10 @@ services:
     
     checkout-api:
         container_name: "checkout-api-container"
-        image: node:10.16-slim
-        working_dir: /backend/src/
-        volumes:
-            - ./backend-checkout:/backend/src/
+        build: './backend-checkout'
         depends_on: 
             - checkout-postgres
             - rabbitmq-queue
-        command: "npm run start"
         ports: 
             - "3010:3000"
         environment:
@@ -37,13 +29,9 @@ services:
 
     auth-api:
         container_name: "auth-api-container"
-        image: node:10.16-slim
-        working_dir: /backend/src/
-        volumes:
-            - ./backend-auth:/backend/src/
+        build: './backend-auth'
         depends_on: 
             - auth-postgres
-        command: "npm run start"
         ports: 
             - "3020:3000"
         environment:
