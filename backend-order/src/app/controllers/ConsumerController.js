@@ -22,7 +22,7 @@ class ConsumerController {
                 
                 console.log(`\n[X] Order created with success!`);
 
-                //Queue.publish('order_exchange', 'order', JSON.stringify(order));
+                await Queue.publish('order_exchange', 'order', JSON.stringify(order));
             });
 
         } catch (error) { 
