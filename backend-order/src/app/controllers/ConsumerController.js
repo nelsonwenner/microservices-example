@@ -1,4 +1,5 @@
 import Queue from '../../services/queue/Queue';
+import Order from '../models/Order';
 
 
 class ConsumerController {
@@ -14,7 +15,14 @@ class ConsumerController {
             Queue.consumer('checkout_exchange', 'checkout_queue', 'checkout', (msg) => {
 
                 console.log(`\n[X] Message receved: ${msg.content}`);
+                
+                const payload = JSON.parse(msg.content);
 
+                Promise.resolve(
+                    Order.create({user_id: payload.user, product_id: payload.product, status: 'pending'})
+                );
+             
+                console.log(`\n[X] Order created with success!`);
             });
 
         } catch (error) { 

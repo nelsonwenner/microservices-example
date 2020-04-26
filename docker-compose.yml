@@ -61,6 +61,7 @@ services:
             - "3030:3000"
         environment:
             - DB_URI=order-postgres
+            - AUTH_URI=auth-api:3000
             - RABBITMQ_URI=rabbitmq-queue
         restart: always
     
