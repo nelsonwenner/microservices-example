@@ -7,7 +7,7 @@ class OrderController {
 
         try {
             console.log("oi")
-        
+
         } catch (error) { 
             switch (error.message) {
                 case 'User not found':
