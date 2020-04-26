@@ -1,5 +1,6 @@
 import Checkout from '../models/Checkout';
-import Api from '../../services/Api'
+import Api from '../../services/Api';
+import queue from '../../services/queue/Queue';
 
 
 class CheckoutController {
@@ -20,7 +21,11 @@ class CheckoutController {
             
             if (!data.status) { throw new Error('not in stock') }
         
-            await Checkout.create({user_id: auth.data.user_id, product_id: product_id});
+            const { checkout_id } = await Checkout.create({user_id: auth.data.user_id, product_id: product_id});
+
+            const payload = JSON.stringify({user: auth.data.user_id, product: product_id, checkout: checkout_id})
+
+            queue.publish('checkout_exchange', 'order', payload);
 
             return res.status(200).json({status: true});
             

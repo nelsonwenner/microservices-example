@@ -17,12 +17,14 @@ services:
         build: './backend-checkout'
         depends_on: 
             - checkout-postgres
+            - rabbitmq-queue
         ports: 
             - "3010:3000"
         environment:
             - DB_URI=checkout-postgres
             - PRODUCT_URI=product-api:3000
             - AUTH_URI=auth-api:3000
+            - RABBITMQ_URI=rabbitmq-queue
         restart: always
 
     auth-api:
@@ -86,3 +88,15 @@ services:
             - product-api
             - checkout-api
             - auth-api
+    
+    rabbitmq-queue:
+        container_name: "rabbitmq-container"
+        image: rabbitmq:3-management
+        environment:
+            RABBITMQ_DEFAULT_USER: "rabbitmq"
+            RABBITMQ_DEFAULT_PASS: "rabbitmq"
+            RABBITMQ_DEFAULT_VHOST: "/"
+        ports:
+            - "15672:15672"
+            - "5672:5672"
+        restart: always

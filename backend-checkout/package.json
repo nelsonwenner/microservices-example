@@ -11,8 +11,10 @@
   "author": "Nelson Wenner",
   "license": "MIT",
   "dependencies": {
+    "amqplib": "^0.5.5",
     "axios": "^0.19.2",
     "cors": "^2.8.5",
+    "death": "^1.1.0",
     "express": "^4.17.1",
     "pg": "^8.0.3",
     "pg-hstore": "^2.3.3",
