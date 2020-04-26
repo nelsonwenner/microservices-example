@@ -21,6 +21,11 @@ module.exports = {
             type: Sequelize.STRING,
             allowNull: false
         },
+
+        stock: {
+          type: Sequelize.INTEGER,
+          allowNull: false
+        },
       });
   },
 

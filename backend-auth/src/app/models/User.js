@@ -1,29 +1,25 @@
 import Sequelize, { Model } from 'sequelize';
 
-class Product extends Model {
+class User extends Model {
     
     static init(sequelize) {
         super.init({
-
-            product_id: {
+            
+            user_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true 
             },
         
-            product: {
+            name: {
                 type: Sequelize.STRING,
-                allowNull: false
+                allowNull: false,
+                unique: true
             },
             
-            price: {
+            password: {
                 type: Sequelize.STRING,
-                allowNull: false
-            },
-
-            stock: {
-                type: Sequelize.INTEGER,
                 allowNull: false
             },
         }, 
@@ -36,4 +32,4 @@ class Product extends Model {
     }
 }
 
-export default Product;
+export default User;
