@@ -47,6 +47,21 @@ services:
         environment:
             - DB_URI=auth-postgres
         restart: always
+
+    order-api:
+        container_name: "order-api-container"
+        image: node:10.16-slim
+        working_dir: /backend/src/
+        volumes:
+            - ./backend-order:/backend/src/
+        depends_on: 
+            - order-postgres
+        command: "npm run start"
+        ports: 
+            - "3030:3000"
+        environment:
+            - DB_URI=order-postgres
+        restart: always
     
     product-postgres:
         container_name: product-postgres-container
@@ -74,6 +89,19 @@ services:
             - POSTGRES_DB=database
         restart: always
 
+    order-postgres:
+        container_name: order-postgres-container
+        image: library/postgres:9.6-alpine
+        ports: 
+            - "5435:5432"
+        volumes: 
+            - ./backend-order/docker/postgres/data:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_USER=root
+            - POSTGRES_PASSWORD=root@123
+            - POSTGRES_DB=database
+        restart: always
+
     nginx:
         container_name: nginx-container
         image: nginx:latest
@@ -85,6 +113,7 @@ services:
             - product-api
             - checkout-api
             - auth-api
+            - order-api
     
     rabbitmq-queue:
         container_name: "rabbitmq-container"
