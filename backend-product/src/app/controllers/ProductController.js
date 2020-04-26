@@ -39,19 +39,20 @@ class ProductController {
     async stock(req, res) {
 
         try {
-            
+           
             const { product_id } = req.body;
-            const attributes = ['product_id', 'product', 'price', stock]
-            const product = await Product.findOne({where: {product_id: product_id, stock: 1}, attributes: attributes});
+            const attributes = ['product_id', 'product', 'price', 'stock']
 
-            if (!product) { throw 'not in stock' }
+            const product = await Product.findOne({where: {product_id: product_id, stock: 1}, attributes: attributes});
+           
+            if (!product) { throw new Error('not in stock') }
 
             return res.status(200).json({status: true});
             
         } catch (error) {
             switch (error.message) {
                 case 'not in stock':
-                    return res.status(404).json({status: false });
+                    return res.status(200).json({status: false });
                 default:
                     return res.status(400).json({error: error.message });
             }

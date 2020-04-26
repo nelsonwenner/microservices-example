@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/Server.js",
-    "migrate": "npx sequelize db:migrate",
+    "migrate": "npx sequelize db:migrate && sequelize db:seed:all",
     "build": "sucrase ./src -d ./dist --transforms imports"
   },
   "author": "Nelson Wenner",

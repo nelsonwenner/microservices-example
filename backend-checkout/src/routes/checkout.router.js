@@ -3,6 +3,7 @@ import router from './config.router';
 
 export default [
 
-    router.post('/checkouts/', CheckoutController.index),
+    router.post('/checkouts/', CheckoutController.store),
+    router.get('/checkouts/', CheckoutController.index),
 
 ]

@@ -15,13 +15,10 @@ class Checkout extends Model {
             user_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
-                references: { model: 'users', key: 'user_id'},
-                onUpdate: 'CASCADE',
-                onDelete: 'CASCADE'
             },
             
             product_id: {
-                type: Sequelize.STRING,
+                type: Sequelize.INTEGER,
                 allowNull: false
             },
         }, 
