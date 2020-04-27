@@ -133,6 +133,7 @@ services:
             - checkout-api
             - auth-api
             - order-api
+            - payment-api
     
     rabbitmq-queue:
         container_name: "rabbitmq-container"
