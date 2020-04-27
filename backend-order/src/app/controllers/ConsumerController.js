@@ -5,10 +5,11 @@ import Order from '../models/Order';
 class ConsumerController {
 
     constructor() {
-        this.consumer();
+        this.consumerCheckout();
+        this.consumerPayment();
     }
     
-    async consumer() {
+    async consumerCheckout() {
 
         try {
             
@@ -23,6 +24,24 @@ class ConsumerController {
                 console.log(`\n[X] Order created with success!`);
 
                 await Queue.publish('order_exchange', 'order', JSON.stringify(order));
+            });
+
+        } catch (error) { 
+            switch (error.message) {
+                default:
+                    console.log("error")
+            }
+        }
+    }
+
+    async consumerPayment() {
+
+        try {
+            
+            await Queue.consumer('payment_exchange', 'payment_queue', 'payment', async (msg) => {
+
+                console.log(`\n[X] Message receved: ${msg.content}`);
+
             });
 
         } catch (error) { 
