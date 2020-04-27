@@ -12,9 +12,7 @@ class CheckoutController {
             
             const auth = await Api.ApiAuth.post('/auth/', {user: user, password: password});
 
-            if (auth.status == 404) { throw new Error('User not found') }
-
-            if (auth.status == 401) { throw new Error('Credentials invalid') }
+            if (!auth.data.status) { throw new Error(auth.data.error) }
             
             const { data } = await Api.ApiProduct.post('/products/stock/', {product_id: product_id});
             

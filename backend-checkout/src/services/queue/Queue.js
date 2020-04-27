@@ -26,6 +26,25 @@ class Queue {
 
         this.closedConnection(connection);
     }
+
+    async consumer(exchange, queueName, routerKey, ACK) {
+        const connection = await amqp.connect(url);
+        const channel = await connection.createChannel();
+
+        await channel.assertExchange(exchange, 'direct', {durable: true});
+
+        const q = await channel.assertQueue(queueName, {durable: true}, {exclusive: false});
+
+        await channel.bindQueue(queueName, exchange, routerKey);
+
+        console.log(" [*] Waiting for messages in %s", q.queue);
+
+        channel.consume(q.queue, (msg) => {
+
+            ACK(msg);
+
+        }, { noAck: true });
+    }
 }
 
 export default new Queue();
