@@ -7,9 +7,9 @@ const url = `amqp://${process.env.RABBITMQ_USER}:${process.env.RABBITMQ_PASSWORD
 class Queue {
 
     constructor() { }
-
+    
     closedConnection(connecction) {
-        console.log("\nClosing Connection...\n");
+        console.log("\nClosing Connection...");
 
         setTimeout(() => { connecction.close();
             process.emit(0);
