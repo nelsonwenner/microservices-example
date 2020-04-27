@@ -22,7 +22,7 @@ class Queue {
         
         await channel.publish(exchange, routerKey, Buffer.from(msgPayload), { persistent: true });
     
-        console.log(`\n[X] Payload: ${msgPayload}\n[X] RouterKey: ${routerKey}`);
+        console.log(`\n[X] Sent Payload: ${msgPayload}\n[X] RouterKey: ${routerKey}`);
 
         this.closedConnection(connection);
     }

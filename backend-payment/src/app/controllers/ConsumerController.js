@@ -1,6 +1,5 @@
 import Queue from '../../services/queue/Queue';
-import Order from '../models/Order';
-
+import Api from '../../services/Api';
 
 class ConsumerController {
 
@@ -12,17 +11,15 @@ class ConsumerController {
 
         try {
             
-            await Queue.consumer('checkout_exchange', 'checkout_queue', 'checkout', async (msg) => {
+            await Queue.consumer('order_exchange', 'order_queue', 'order', async (msg) => {
 
                 console.log(`\n[X] Message receved: ${msg.content}`);
 
                 const payload = JSON.parse(msg.content);
 
-                const order = await Order.create({user_id: payload.user, product_id: payload.product, status: 'pending'});
-                
-                console.log(`\n[X] Order created with success!`);
+                payload.status = "aproved";
 
-                await Queue.publish('order_exchange', 'order', JSON.stringify(order));
+                await Queue.publish('payment_exchange', 'payment', JSON.stringify(payload));
             });
 
         } catch (error) { 

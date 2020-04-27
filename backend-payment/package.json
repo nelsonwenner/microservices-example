@@ -1,0 +1,24 @@
+{
+  "name": "backend-checkout",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/Server.js",
+    "build": "sucrase ./src -d ./dist --transforms imports"
+  },
+  "author": "Nelson Wenner",
+  "license": "MIT",
+  "dependencies": {
+    "amqplib": "^0.5.5",
+    "axios": "^0.19.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "consola": "^2.11.3",
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.3",
+    "sucrase": "^3.13.0"
+  }
+}
