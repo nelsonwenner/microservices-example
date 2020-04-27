@@ -42,6 +42,14 @@ class ConsumerController {
 
                 console.log(`\n[X] Message receved: ${msg.content}`);
 
+                const payload = JSON.parse(msg.content);
+
+                const order = await Order.findOne({where: {order_id: payload.order_id}});
+                order.status = payload.status;
+                await order.save();
+
+                console.log(`\n[X] Order updated with success!`);
+
             });
 
         } catch (error) { 

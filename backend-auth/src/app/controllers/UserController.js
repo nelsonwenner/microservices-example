@@ -22,9 +22,9 @@ class UserController {
         } catch (error) { 
             switch (error.message) {
                 case 'User not found':
-                    return res.status(404).json({error: 'User not found', status: false});
+                    return res.status(200).json({error: 'User not found', status: false});
                 case 'Credentials invalid':
-                    return res.status(401).json({error: 'Credentials invalid', status: false});
+                    return res.status(200).json({error: 'Credentials invalid', status: false});
                 default:
                     return res.status(400).json({error: error.message });
             }
