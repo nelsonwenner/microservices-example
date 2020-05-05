@@ -39,6 +39,7 @@ class Login extends Component {
       .then((res) => {
         NProgress.done();
         localStorage.setItem('auth', JSON.stringify(res.data.status));
+        localStorage.setItem('credentials', JSON.stringify({email: email, password: password }));
 
         redirect('/products');
 

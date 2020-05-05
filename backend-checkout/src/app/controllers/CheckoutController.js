@@ -8,9 +8,9 @@ class CheckoutController {
 
         try {
 
-            const { user, password, product_id } = req.body;
-            
-            const auth = await Api.ApiAuth.post('/auth/', {user: user, password: password});
+            const { email, password, product_id } = req.body;
+
+            const auth = await Api.ApiAuth.post('/auth/', {email: email, password: password});
 
             if (!auth.data.status) { throw new Error(auth.data.error) }
             

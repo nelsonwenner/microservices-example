@@ -8,9 +8,9 @@ class OrderController {
 
         try {
 
-            const { user, password } = req.body;
+            const { email, password } = req.body;
             
-            const auth = await Api.ApiAuth.post('/auth/', {user: user, password: password});
+            const auth = await Api.ApiAuth.post('/auth/', {email: email, password: password});
 
             if (auth.status == 404) { throw new Error('User not found') }
 

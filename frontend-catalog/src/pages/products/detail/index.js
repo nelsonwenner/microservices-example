@@ -39,9 +39,14 @@ class ProductDetail extends Component {
     if(!email || !password) {
       this.setState(() => ({ error: {text: 'Fill in all the fields', color: 'red'}}));
     } else {
+      this.setState({loading: true});
       Api.post('/checkouts/', {email: email, password: password, product_id: this.props.match.params.id})
       .then((res) => {
-        this.setState({success: res.data, message: {text: 'Success Checkout', color: 'green'}, error: null, loading: false, email: '', password: '' });
+
+        setTimeout(() => {
+          this.setState({success: res.data, message: {text: 'Success Checkout', color: 'green'}, error: null, loading: false, email: '', password: '' });
+        }, 5000)
+
       })
       .catch(() => this.setState({message: {text: 'Failure Checkout', color: 'red'}, loading: false, email: '', password: '' }))
     }
@@ -105,7 +110,7 @@ class ProductDetail extends Component {
                   loading ? (
 
                     <div>
-                      <Spinner  className="center-content" name="pacman" />
+                      <Spinner className="center-spinner" name="circle" />
                     </div>
 
                   ) : (
@@ -143,24 +148,6 @@ class ProductDetail extends Component {
             </div>
           </div>
         </div>
-
-        {
-          /*
-          success ? (
-
-            <div style={{ paddingTop: 10 }}>
-              <p style={{color: 'green'}}>{ 'Success Checkout' }</p>
-            </div>
-
-          ) : (
-
-            <div style={{ paddingTop: 10 }}>
-              <p style={{color: 'red'}}>{ 'Failure Checkout' }</p>
-            </div>
-
-          )
-          */
-        }
       </>
     )
   }

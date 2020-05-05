@@ -1,3 +1,23 @@
 .title {
     padding: 40px;
 }
+
+.modelButton {
+  margin-bottom: 50px;
+}
+
+.ReactModal__Content {
+  position: absolute;
+  left: 2.5rem;
+  right: 2.5rem;
+  top: 2.5rem;
+  bottom: 2.5rem;
+  width: 650px;
+  box-shadow: 0 0 10px 0 rgba(0,0,97,0.5);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgb(44, 45, 46) !important;
+}

@@ -43,11 +43,12 @@
     padding: 40px;
 }
 
-.center-contentt {
-  margin-top: 20px;
+.center-spinner {
+  margin-top: 60px;
   padding: 20px;
   margin-left: auto;
   margin-right: auto;
+  color: white !important;
 }
 
 .container {
