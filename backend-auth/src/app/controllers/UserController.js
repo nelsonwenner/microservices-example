@@ -1,4 +1,4 @@
-import User from '../models/User';
+import authenticateAuth from '../../services/auth/authenticate.auth';
 
 
 class UserController {
@@ -6,18 +6,10 @@ class UserController {
     async auth(req, res) {
 
         try {
-
-            const { email, password } = req.body;
             
-            const existsUser = await User.findOne({where: {email: email}});
+            const { id, token } = await authenticateAuth.login(req.body);
 
-            if (!existsUser) { throw new Error('User not found') }
-            
-            const validationUser = await User.findOne({where: {email: email, password: password}});
-
-            if (!validationUser) { throw new Error('Credentials invalid') }
-            
-            return res.status(200).json({status: true, user_id: validationUser.user_id});
+            return res.status(200).json({ id: id, token: token }); 
         
         } catch (error) { 
             switch (error.message) {
