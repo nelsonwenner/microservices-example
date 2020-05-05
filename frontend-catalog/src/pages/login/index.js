@@ -30,7 +30,7 @@ class Login extends Component {
     event.preventDefault();
 
     const { email, password } = this.state;
-
+    
     if(!email || !password) {
       this.setState(() => ({ error: 'Fill in all the fields' }));
     } else {
@@ -39,7 +39,7 @@ class Login extends Component {
       .then((res) => {
         NProgress.done();
         localStorage.setItem('auth', JSON.stringify(res.data.status));
-        
+
         redirect('/products');
 
       })
