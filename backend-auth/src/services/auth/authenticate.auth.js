@@ -15,15 +15,16 @@ class AuthenticateAuth {
 
     async login(data) {
         const user = await User.findOne({where: {email: data.email, password: data.password}});
-     
+        
         if (!user) { throw new Error('ERR_USER_NOT_FOUND'); }
-        console.log(user.user_id)
+ 
         const JWTData = {
             exp: Math.floor(Date.now() / 1000) + 54200,
             info: 'api-auth',
-            id: user.user_id
+            id: user.user_id,
+            email: user.email
         };
-        
+     
         return await this.setupLogin(user.user_id, data.email, data.password, JWTData);
     }
 }

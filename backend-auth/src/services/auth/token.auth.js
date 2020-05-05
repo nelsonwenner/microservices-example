@@ -19,11 +19,11 @@ class TokenAuth {
 
     async checkToken(req, res, next) {
         let token = req.headers.authorization;
-        
+       
         if (!token){
             return res.status(401).send({ auth: false, message: 'NO_TOKEN_PROVIDED' });
         }
-
+        
         token = token.slice(7);
        
         JWT.verify(token, SECRET_KEY, {algorithm: ALGORITHM}, (error, decodedToken) => {
@@ -36,8 +36,8 @@ class TokenAuth {
                         return res.status(500).send({ auth: false, message: 'ERR_FAILED_TO_AUTHENTICATE_TOKEN' });
                 }
             }
-            
-            return res.status(200).send({ auth: true });
+        
+            return res.status(200).send({ auth: true, user_id: decodedToken.id, email: decodedToken.email });
         });
     }
 }

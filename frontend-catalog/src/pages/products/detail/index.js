@@ -27,7 +27,7 @@ class ProductDetail extends Component {
   }
 
   async getProduct(id) {
-    const { data } = await Api.get(`/products/${id}/`);
+    const { data } = await Api.base.get(`/products/${id}/`);
     this.setState({ product: data });
   }
 
@@ -40,7 +40,8 @@ class ProductDetail extends Component {
       this.setState(() => ({ error: {text: 'Fill in all the fields', color: 'red'}}));
     } else {
       this.setState({loading: true});
-      Api.post('/checkouts/', {email: email, password: password, product_id: this.props.match.params.id})
+      const auth = JSON.parse(localStorage.getItem('auth'))
+      Api.getCheckout(auth.token).post('/checkouts/', {email: email, product_id: this.props.match.params.id})
       .then((res) => {
 
         setTimeout(() => {

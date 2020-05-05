@@ -36,13 +36,13 @@ class Home extends Component {
   }
 
   async getProducts() {
-    const { data } = await Api.get('/products/');
+    const { data } = await Api.base.get('/products/');
     this.setState({ products: data });
   }
 
   async getOrders() {
-    const credentials = JSON.parse(localStorage.getItem('credentials'));
-    const { data } = await Api.post('/orders/', credentials);
+    const credentials = JSON.parse(localStorage.getItem('auth'));
+    const { data } = await Api.getOrder(credentials.token).post('/orders/');
     this.setState({ orders: data });
   }
 

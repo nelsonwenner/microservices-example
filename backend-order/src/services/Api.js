@@ -8,10 +8,12 @@ const ApiProduct = Axios.create({
     }
 })
 
-const ApiAuth = Axios.create({
+
+const ApiAuth = (token) => Axios.create({
     baseURL: `http://${process.env.AUTH_URI}`,
     headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
     }
 })
 

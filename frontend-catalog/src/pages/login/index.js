@@ -35,11 +35,10 @@ class Login extends Component {
       this.setState(() => ({ error: 'Fill in all the fields' }));
     } else {
       NProgress.start();
-      Api.post('/auth/', {email: email, password: password })
+      Api.base.post('/auth/', {email: email, password: password })
       .then((res) => {
         NProgress.done();
-        localStorage.setItem('auth', JSON.stringify(res.data.status));
-        localStorage.setItem('credentials', JSON.stringify({email: email, password: password }));
+        localStorage.setItem('auth', JSON.stringify(res.data));
 
         redirect('/products');
 

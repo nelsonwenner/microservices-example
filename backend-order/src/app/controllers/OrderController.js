@@ -1,4 +1,4 @@
-import Order from '../models/Order';
+import Order  from '../models/Order';
 import Api from '../../services/Api';
 
 
@@ -8,18 +8,19 @@ class OrderController {
 
         try {
 
-            const { email, password } = req.body;
+            const { authorization } = req.headers;
             
-            const auth = await Api.ApiAuth.post('/auth/', {email: email, password: password});
+            const split = authorization.split('Bearer');
+            const token = split[1].replace(' ', '');
 
-            if (auth.status == 404) { throw new Error('User not found') }
+            const { data } = await Api.ApiAuth(token).post('/auth/checkout-token');
+            
+            if (!data.auth) { throw new Error('Token invalid') }
 
-            if (auth.status == 401) { throw new Error('Credentials invalid') }
-
-            const orders = await Order.findAll({where: {user_id: auth.data.user_id}});
+            const orders = await Order.findAll({where: {user_id: data.user_id}});
 
             return res.status(200).json(orders);
-
+            
         } catch (error) { 
             switch (error.message) {
                 case 'User not found':
