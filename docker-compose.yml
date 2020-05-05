@@ -57,7 +57,7 @@ services:
         depends_on: 
             - order-postgres
             - rabbitmq-queue
-        command: "npm run start"
+        command: "./wait-for-it.sh www.google.com:81 -- npm run start"
         ports: 
             - "3030:3000"
         environment:
@@ -72,7 +72,7 @@ services:
         working_dir: /backend/src/
         volumes:
             - ./backend-payment:/backend/src/
-        command: "npm run start"
+        command: "./wait-for-it.sh www.google.com:81 -- npm run start"
         depends_on: 
             - rabbitmq-queue
         ports: 
