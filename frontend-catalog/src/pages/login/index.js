@@ -30,7 +30,7 @@ class Login extends Component {
     event.preventDefault();
 
     const { email, password } = this.state;
-    
+
     if(!email || !password) {
       this.setState(() => ({ error: 'Fill in all the fields' }));
     } else {
@@ -89,6 +89,7 @@ class Login extends Component {
                     onChange={ this.handleChange }
                   />
                 </div>
+
                 <div>
                   <CustomButton
                     typeBtn="submit"

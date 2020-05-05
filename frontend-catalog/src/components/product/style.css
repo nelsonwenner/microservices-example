@@ -10,7 +10,7 @@
     margin: 10px;
     height: 200px;
     width: 550px;
-    background: rgb(226, 226, 226);
+    color: rgb(173, 169, 162);
     border-radius: 5px;
     border: 1px solid #ddd;
 }
@@ -31,7 +31,7 @@
 }
 
 .card-flex:hover {
-    box-shadow: 0px 3px 20px 0 rgba(102, 247, 110, 0.5)
+  box-shadow: 0px 3px 20px 0 rgba(102, 247, 110, 0.5)
 }
 
 .card li {

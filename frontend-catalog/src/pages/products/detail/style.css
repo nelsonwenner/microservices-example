@@ -1,6 +1,5 @@
 .flex-container {
     display: flex;
-    flex-wrap: wrap;
     max-width: 1100px;
     margin: 0 auto;
 }
@@ -10,7 +9,7 @@
     margin: 10px;
     height: 200px;
     width: 100px;
-    background: rgb(226, 226, 226);
+    color: rgb(173, 169, 162);
     border-radius: 5px;
     border: 1px solid #ddd;
     margin-left: 300px;
@@ -42,4 +41,51 @@
 
 .title {
     padding: 40px;
+}
+
+.center-contentt {
+  margin-top: 20px;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+
+.loginn  {
+  padding: 100px;
+}
+
+.login .aye  {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-bodyy {
+  height: 400px;
+  max-width: 650px;
+  width: 100%;
+  background: #212121;
+  border-radius: 5px;
+  box-shadow: 0 0 14px 0 rgba(0, 0, 0, .19);
+  position: relative;
+  bottom: 30px;
+  transition: all 0.5s;
+}
+
+.card-body:hover {
+  box-shadow: 0px 3px 20px 0 #7274ff;
+  transition: all 0.5s;
 }
