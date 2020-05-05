@@ -7,13 +7,13 @@ class UserController {
 
         try {
 
-            const { user, password } = req.body;
+            const { email, password } = req.body;
             
-            const existsUser = await User.findOne({where: {name: user}});
+            const existsUser = await User.findOne({where: {email: email}});
 
             if (!existsUser) { throw new Error('User not found') }
             
-            const validationUser = await User.findOne({where: {name: user, password: password}});
+            const validationUser = await User.findOne({where: {email: email, password: password}});
 
             if (!validationUser) { throw new Error('Credentials invalid') }
             

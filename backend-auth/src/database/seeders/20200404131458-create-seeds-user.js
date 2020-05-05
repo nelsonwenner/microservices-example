@@ -6,7 +6,8 @@ module.exports = {
       [
         {
           name: 'nelson',
-          password: '123',
+          email: 'nelsonwenner@gmail.com',
+          password: 'test@123',
           created_at: new Date(),
           updated_at: new Date(),
         },
@@ -17,6 +18,6 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => {
       
-      return queryInterface.bulkDelete('users', null, {});
+    return queryInterface.bulkDelete('users', null, {});
   }
 };
