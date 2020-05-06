@@ -34,10 +34,25 @@ $ docker ps
 
 /* Access containers of microservices. [product-api-container, order-api-container, auth-api-container] */
 
-$ docker exec -it [name_container] /bin/bash
+$ docker exec -it name_container /bin/bash
 
 /* Database migrates */
 
 $ npm run migrate
 ```
+4. Run frontend catalog, Change the directory to `frontend-catalog`.
+
+```bash
+/* Install dependencies */
+
+$ npm install
+
+/* Run frontend */
+
+$ npm start
+```
+
+5. Open frontend: The host [localhost:3333](http://localhost:3333) and start using it. Credentials `email: nelsonwenner@gmail.com password: test@123`
+
+---
 
