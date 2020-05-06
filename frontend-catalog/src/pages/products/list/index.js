@@ -72,9 +72,9 @@ class Home extends Component {
           </CustomButton>
 
         </div>
-
+        
         <Product
-          data={ this.state.products }
+          dataProduct={ this.state.products }
         />
 
         <Modal

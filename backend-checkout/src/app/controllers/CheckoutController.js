@@ -12,7 +12,7 @@ class CheckoutController {
             const { email, product_id } = req.body;
             
             const checkoutAuth = await Api.ApiAuth(authorization).post('/auth/checkout-token');
-            console.log("\nTESTS: ", checkoutAuth)
+            
             if (!checkoutAuth.data.auth && !(checkoutAuth.data.email == email)) { throw new Error('Failure Authorization') }
             
             const { data } = await Api.ApiProduct.post('/products/stock/', {product_id: product_id});

@@ -38,6 +38,7 @@ class ProductDetail extends Component {
 
     if(!email || !password) {
       this.setState(() => ({ error: {text: 'Fill in all the fields', color: 'red'}}));
+
     } else {
       this.setState({loading: true});
       const auth = JSON.parse(localStorage.getItem('auth'))
@@ -45,11 +46,23 @@ class ProductDetail extends Component {
       .then((res) => {
 
         setTimeout(() => {
-          this.setState({success: res.data, message: {text: 'Success Checkout', color: 'green'}, error: null, loading: false, email: '', password: '' });
+          this.setState({
+            success: res.data,
+            message:{text: 'Success Checkout',
+            color: 'rgb(4, 252, 128)'},
+            error: null,
+            loading: false,
+            email: '',
+            password: '' });
         }, 5000)
 
       })
-      .catch(() => this.setState({message: {text: 'Failure Checkout', color: 'red'}, loading: false, email: '', password: '' }))
+      .catch(() => this.setState({
+        error: {text: 'Failure Checkout',
+        color: 'red'},
+        loading: false,
+        email: '',
+        password: '' }))
     }
   }
 
@@ -75,6 +88,22 @@ class ProductDetail extends Component {
               <div className="card-price">
                 $ { this.state.product.price  }
               </div>
+
+              {
+                this.state.product.stock ? (
+
+                  <div style={{ color: 'rgb(4, 252, 128)' }}>
+                    Stock
+                  </div>
+
+                ) : (
+
+                  <div style={{ color: 'red' }}>
+                    Stock
+                  </div>
+
+                )
+              }
             </div>
           }
         </div>
