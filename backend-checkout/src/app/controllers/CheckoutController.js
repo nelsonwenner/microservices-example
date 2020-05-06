@@ -8,17 +8,18 @@ class CheckoutController {
 
         try {
 
-            const { user, password, product_id } = req.body;
+            const { authorization } = req.headers;
+            const { email, product_id } = req.body;
             
-            const auth = await Api.ApiAuth.post('/auth/', {user: user, password: password});
-
-            if (!auth.data.status) { throw new Error(auth.data.error) }
+            const checkoutAuth = await Api.ApiAuth(authorization).post('/auth/checkout-token');
+            
+            if (!checkoutAuth.data.auth && !(checkoutAuth.data.email == email)) { throw new Error('Failure Authorization') }
             
             const { data } = await Api.ApiProduct.post('/products/stock/', {product_id: product_id});
             
             if (!data.status) { throw new Error('not in stock') }
             
-            const payload = JSON.stringify({user: auth.data.user_id, product: product_id, created_at: new Date()});
+            const payload = JSON.stringify({user: checkoutAuth.data.user_id, product: product_id, created_at: new Date()});
             
             await Queue.publish('checkout_exchange', 'checkout', payload);
 
@@ -26,8 +27,8 @@ class CheckoutController {
             
         } catch (error) { 
             switch (error.message) {
-                case 'User not found':
-                    return res.status(404).json({error: 'User not found' });
+                case 'Failure Authorization':
+                    return res.status(401).json({error: 'Failure Authorization' });
                 case 'Credentials invalid':
                     return res.status(400).json({error: 'Credentials invalid' });
                 case 'not in stock':

@@ -41,7 +41,7 @@ services:
             - ./backend-auth:/backend/src/
         depends_on: 
             - auth-postgres
-        command: "npm run start"
+        command: "./wait-for-it.sh www.google.com:81 -- npm run start"
         ports: 
             - "3020:3000"
         environment:

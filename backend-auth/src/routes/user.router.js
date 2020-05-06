@@ -3,6 +3,6 @@ import router from './config.router';
 
 export default [
 
-    router.post('/auth/', UserController.auth),
+    router.post('/auth', UserController.auth),
 
 ]

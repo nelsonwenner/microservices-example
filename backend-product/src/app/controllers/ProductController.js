@@ -24,7 +24,7 @@ class ProductController {
         try {
             
             const { id } = req.params;
-            const attributes = ['product_id', 'product', 'price', stock]
+            const attributes = ['product_id', 'product', 'price', 'stock']
             const product = await Product.findOne({where: {product_id: id}, attributes: attributes});
             return res.status(200).json(product);
             
