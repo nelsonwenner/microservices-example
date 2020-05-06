@@ -21,17 +21,17 @@
 ## Getting Started
 1. Fork this repository and clone on your machine
 2. Change the directory to `microservices-example` where you cloned it;
-3. Run docker, :
+3. Run docker:
 
 ```bash
 /* container up */
 
 $ docker-compose up
+```
 
-/* List container names */
+4. Run migrate on microservices
 
-$ docker ps
-
+```bash
 /* Access containers of microservices. [product-api-container, order-api-container, auth-api-container] */
 
 $ docker exec -it name_container /bin/bash
@@ -40,7 +40,8 @@ $ docker exec -it name_container /bin/bash
 
 $ npm run migrate
 ```
-4. Run frontend catalog, Change the directory to `frontend-catalog`.
+
+5. Run frontend catalog, Change the directory to `frontend-catalog`.
 
 ```bash
 /* Install dependencies */
@@ -52,14 +53,14 @@ $ npm install
 $ npm start
 ```
 
-5. Open frontend: The host [localhost:3333](http://localhost:3333) and start using it. Credentials.
+6. Open frontend: The host [localhost:3333](http://localhost:3333) and start using it. Credentials.
 
  ```bash
  email: nelsonwenner@gmail.com 
  password: test@123
  ```
 
-6. Open robbitMQ: the host [localhost:15672](http://localhost:15672) and start using it. Credentials.
+7. Open robbitMQ: the host [localhost:15672](http://localhost:15672) and start using it. Credentials.
 
  ```bash
  user: rabbitmq 
