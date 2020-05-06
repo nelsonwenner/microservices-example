@@ -54,8 +54,22 @@ $ npm start
 
 5. Open frontend: The host [localhost:3333](http://localhost:3333) and start using it. Credentials `email: nelsonwenner@gmail.com password: test@123`
 
+6. Open robbitMQ: the host [localhost:15672](http://localhost:15672) and start using it. Credentials `user: rabbitmq password: rabbitmq`
+
 ## About the project
 #### The project is a small demonstration of the purchase of the product. At checkout, he initiated several communications between microservices and some checks between them. One is authentication, the other is whether the product is available from stock, keeping the data on the microservice order and validating the payment for the product, which simply changes a pending order attribute to approved. The most interesting of this example is the communication between microservices through queues. In this part, you can bring down any server connected to the queue, because the data will not be lost, you can even bring down the queue itself, because the data persists and, when it comes back, it sends messages to consumers.
 
+## Example
+#### In this example, we simulate a microservice that is connected to the queue, which in this case is micro payment service the, so when the customer checks out and checks their orders, the product will be pending. However, when we run the micro payment service again, it will process the data for that order and ultimately have an approved status.
+
+```bash
+/* Disabling the micro payment service */
+
+$ docker stop payment-api-container
+
+/* Starting the payment microservice */
+
+$ docker start payment-api-container
+```
 ---
 
