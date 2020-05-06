@@ -10,7 +10,7 @@
 
 ## System architecture
 
-![system-architecture](https://user-images.githubusercontent.com/40550247/80425353-da3d5000-88b9-11ea-81eb-9dfb1722aae6.png)
+![system-architecture](https://user-images.githubusercontent.com/40550247/81175908-b42f4400-8f7a-11ea-9bb5-b23a7d07e929.png)
 
 ### Prerequisites
 * Docker Compose version (1.25.4)
