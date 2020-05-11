@@ -29,19 +29,7 @@
 $ docker-compose up
 ```
 
-4. Run migrate on microservices
-
-```bash
-/* Access containers of microservices. [product-api-container, order-api-container, auth-api-container] */
-
-$ docker exec -it name_container /bin/bash
-
-/* Database migrates */
-
-$ npm run migrate
-```
-
-5. Run frontend catalog, Change the directory to `frontend-catalog`.
+4. Run frontend catalog, Change the directory to `frontend-catalog`.
 
 ```bash
 /* Install dependencies */
@@ -53,14 +41,14 @@ $ npm install
 $ npm start
 ```
 
-6. Open frontend: The host [localhost:3333](http://localhost:3333) and start using it. Credentials.
+5. Open frontend: The host [localhost:3333](http://localhost:3333) and start using it. Credentials.
 
  ```bash
  email: nelsonwenner@gmail.com 
  password: test@123
  ```
 
-7. Open robbitMQ: the host [localhost:15672](http://localhost:15672) and start using it. Credentials.
+6. Open robbitMQ: the host [localhost:15672](http://localhost:15672) and start using it. Credentials.
 
  ```bash
  user: rabbitmq 
