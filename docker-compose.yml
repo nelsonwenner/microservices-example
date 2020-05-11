@@ -4,14 +4,12 @@ services:
     product-api:
         container_name: "product-api-container"
         image: node:10.16-slim
+        entrypoint: ./.docker/entrypoint.sh
         working_dir: /backend/src/
         volumes:
             - ./backend-product:/backend/src/
         depends_on: 
             - product-postgres
-        command: >
-            bash -c "npm install 
-            && npm run start"
         ports: 
             - "3000:3000"
         environment:
@@ -21,12 +19,10 @@ services:
     checkout-api:
         container_name: "checkout-api-container"
         image: node:10.16-slim
+        entrypoint: ./.docker/entrypoint.sh
         working_dir: /backend/src/
         volumes:
             - ./backend-checkout:/backend/src/
-        command: >
-            bash -c "npm install 
-            && npm run start"
         depends_on: 
             - rabbitmq-queue
         ports: 
@@ -41,13 +37,11 @@ services:
         container_name: "auth-api-container"
         image: node:10.16-slim
         working_dir: /backend/src/
+        entrypoint: ./.docker/entrypoint.sh
         volumes:
             - ./backend-auth:/backend/src/
         depends_on: 
             - auth-postgres
-        command: >
-            bash -c "npm install 
-            && npm run start"
         ports: 
             - "3020:3000"
         environment:
@@ -57,15 +51,13 @@ services:
     order-api:
         container_name: "order-api-container"
         image: node:10.16-slim
+        entrypoint: ./.docker/entrypoint.sh
         working_dir: /backend/src/
         volumes:
             - ./backend-order:/backend/src/
         depends_on: 
             - order-postgres
             - rabbitmq-queue
-        command: >
-            bash -c "./wait-for-it.sh www.google.com:81 -- npm install 
-            && npm run start"
         ports: 
             - "3030:3000"
         environment:
@@ -77,12 +69,10 @@ services:
     payment-api:
         container_name: "payment-api-container"
         image: node:10.16-slim
+        entrypoint: ./.docker/entrypoint.sh
         working_dir: /backend/src/
         volumes:
             - ./backend-payment:/backend/src/
-        command: >
-            bash -c "./wait-for-it.sh www.google.com:81 -- npm install 
-            && npm run start"
         depends_on: 
             - rabbitmq-queue
         ports: 
